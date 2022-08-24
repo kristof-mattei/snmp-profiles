@@ -1,0 +1,94 @@
+# http://oid-info.com/get/1.3.6.1.4.1.6574
+# Profile is intended to be used in an extends block
+---
+metrics:
+  - MIB: UCD-SNMP-MIB
+    symbol:
+      name: laLoadInt1Min
+      OID: 1.3.6.1.4.1.2021.10.1.5.1
+      description: The 1 minute load averages as an integer. This is computed by taking the floating point loadaverage value and multiplying by 100. Polled at 60s to support anomaly detection
+      poll_time_sec: 60
+      tag: CPU
+  - MIB: HOST-RESOURCES-MIB
+    symbol:
+      name: hrStorageUsed
+      OID: 1.3.6.1.2.1.25.2.3.1.6.1
+      description: Memory Total, polled at 60s to support anomaly detection
+      poll_time_sec: 60
+      tag: MemoryTotal
+  - MIB: HOST-RESOURCES-MIB
+    symbol:
+      name: hrStorageUsed
+      OID: 1.3.6.1.2.1.25.2.3.1.6.6
+      description: Memory Buffers, polled at 60s to support anomaly detection
+      poll_time_sec: 60
+      tag: MemoryBuffer
+  - MIB: HOST-RESOURCES-MIB
+    symbol:
+      name: hrStorageUsed
+      OID: 1.3.6.1.2.1.25.2.3.1.6.7
+      description: Memory Cache, polled at 60s to support anomaly detection
+      poll_time_sec: 60
+      tag: MemoryCache
+  - MIB: SYNOLOGY-SYSTEM-MIB
+    symbol:
+      name: systemStatus
+      OID: 1.3.6.1.4.1.6574.1.1.0
+      enum:
+        normal: 1
+        failed: 2
+      description: System partition status
+  # doesn't work for SRM
+  - MIB: SYNOLOGY-SYSTEM-MIB
+    symbol:
+      name: temperature
+      OID: 1.3.6.1.4.1.6574.1.2.0
+      description: Temperature of this NAS
+  - MIB: SYNOLOGY-SYSTEM-MIB
+    symbol:
+      name: powerStatus
+      OID: 1.3.6.1.4.1.6574.1.3.0
+      description: Returns error if power supplies fail
+      enum:
+        normal: 1
+        failed: 2
+  - MIB: SYNOLOGY-SYSTEM-MIB
+    symbol:
+      name: systemFanStatus
+      OID: 1.3.6.1.4.1.6574.1.4.1.0
+      description: Returns error if system fan fails
+      enum:
+        normal: 1
+        failed: 2
+  - MIB: SYNOLOGY-SYSTEM-MIB
+    symbol:
+      name: cpuFanStatus
+      OID: 1.3.6.1.4.1.6574.1.4.2.0
+      description: Returns error if CPU fan fails
+      enum:
+        normal: 1
+        failed: 2
+  - MIB: SYNOLOGY-SYSTEM-MIB
+    symbol:
+      name: upgradeAvailable
+      OID: 1.3.6.1.4.1.6574.1.5.4.0
+      description: Checks whether a new version or update of DSM / SRM is available
+      enum:
+        available: 1
+        unavailable: 2
+        connecting: 3
+        disconnected: 4
+        others: 5
+    metric_tags:
+      - column:
+          name: modelName
+          OID: 1.3.6.1.4.1.6574.1.5.1.0
+          description: Model name of this NAS / Router
+      - column:
+          name: serialNumber
+          OID: 1.3.6.1.4.1.6574.1.5.2.0
+          description: Model serial number
+      - column:
+          name: version
+          OID: 1.3.6.1.4.1.6574.1.5.3.0
+          description: The version of DSM / SRM
